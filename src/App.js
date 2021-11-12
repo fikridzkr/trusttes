@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { Switch, Route} from "react-router-dom";
+import { users } from "./data";
+import AddUsers from './pages/AddUsers'
+import EditUsers from './pages/EditUsers'
+import ListUsers from './pages/ListUsers';
 
 function App() {
+  const [usersData, setUsersData] = useState(users);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <div className='container'>
+     <Switch>
+        <Route exact path="/">
+          <ListUsers usersData={usersData} setUsersData={setUsersData}/>
+          </Route>
+        <Route exact path="/add">
+          <AddUsers/>
+          </Route>
+        <Route  path="/edit/:id">
+          <EditUsers usersData={usersData} setUsersData={setUsersData}/>
+          </Route>
+      </Switch>
+   </div>
   );
 }
 
